@@ -55,12 +55,15 @@ export class UsersService {
     }
   }
 
-  async signIn(createUserDto: CreateUserDto): Promise<boolean> {
+  async signIn(createUserDto: CreateUserDto): Promise<User> {
     const { username, password } = createUserDto;
-    const user = await this.userRepository.findOne({ where: { username } });
+    const user = await this.userRepository.findOne({
+      where: { username },
+      relations: { books: true },
+    });
 
-    if( user?.password === password){
-      return true;
+    if (user?.password === password) {
+      return user;
     } else {
       throw new UnauthorizedException('Invalid credentials');
     }
@@ -86,6 +89,8 @@ export class UsersService {
     }
 
     //await this.userRepository.save(user);
-    return await this.bookRepositoty.save(book);
+    await this.bookRepositoty.save(book);
+
+    return book;
   }
 }

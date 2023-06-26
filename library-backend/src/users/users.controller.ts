@@ -42,13 +42,13 @@ export class UsersController {
   @Post('/signin')
   async signIn(
     @Body(ValidationPipe) createUserDto: CreateUserDto,
-  ): Promise<boolean> {
+  ): Promise<User> {
+    console.log(createUserDto);
     return await this.usersService.signIn(createUserDto);
   }
 
   @Patch('/update')
   async updateUserBooks(@Body(ValidationPipe) userBookDto: UserBookDto) {
-    //console.log(userBookDto);
     const user = await this.usersService.getUserById(userBookDto.userId);
     if (!user) {
       throw new NotFoundException('User does not exist');

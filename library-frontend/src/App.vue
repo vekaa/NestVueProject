@@ -1,10 +1,17 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/home">Home</router-link> |
+    <router-link to="/about">About</router-link> | 
+    <router-link to="/logout">Sign out</router-link> | 
+    <router-link :to="{name: 'Edit', params: {id: 0}}">Add new book</router-link>
   </nav>
   <router-view/>
 </template>
+
+<script>
+
+</script>
+
 
 <style>
 #app {

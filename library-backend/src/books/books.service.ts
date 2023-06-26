@@ -41,4 +41,16 @@ export class BooksService {
 
         return newBook;
     }
+
+    async updateBook(id:number, createBookDto: CreateBookDto) {
+        const editBook = await this.getBookById(id);
+        if (!editBook){
+            throw new NotFoundException('Book not exist');
+        }
+        
+        Object.assign(editBook, createBookDto);
+
+        return await this.bookRepository.save(editBook);
+
+    }
 }
